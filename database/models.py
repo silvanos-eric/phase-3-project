@@ -40,6 +40,7 @@ class Book(Base):
     title = Column(String, nullable=False)
     price = Column(Float, nullable=False)
     author_id = Column(Integer, ForeignKey('authors.id'))
+    quantity = Column(Integer, default=1)
 
     author = relationship('Author', back_populates='books')
     sales = relationship('Sale', secondary=books_sales, back_populates='books')
