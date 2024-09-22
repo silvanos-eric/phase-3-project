@@ -1,23 +1,9 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table, Date
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.sql import func
 
 # Create the Base class, subclassed by all models
 Base = declarative_base()
-
-# Association table for many-to-many relationshi between Sale and Book
-books_sales = Table('books_sales',
-                    Base.metadata,
-                    Column('sale_id',
-                           Integer,
-                           ForeignKey('sales.id'),
-                           primary_key=True),
-                    Column('book_id',
-                           Integer,
-                           ForeignKey('books.id'),
-                           primary_key=True),
-                    Column('purchase_date', Date, default=func.now()),
-                    extend_existing=True)
 
 
 # Author model
@@ -39,11 +25,11 @@ class Book(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
     price = Column(Float, nullable=False)
-    author_id = Column(Integer, ForeignKey('authors.id'))
+    author_id = Column(Integer, ForeignKey('authors.id'), nullable=False)
     quantity = Column(Integer, default=1)
 
     author = relationship('Author', back_populates='books')
-    sales = relationship('Sale', secondary=books_sales, back_populates='books')
+    sales = relationship('Sale', back_populates='book')
 
     def __repr__(self):
         return f"<Book(title={self.title}, price={self.price})>"
@@ -54,10 +40,11 @@ class Sale(Base):
     __tablename__ = 'sales'
 
     id = Column(Integer, primary_key=True)
-    book_id = Column(Integer, ForeignKey('books.id'))
-    quantity = Column(Integer, nullable=False)
+    book_id = Column(Integer, ForeignKey('books.id'), nullable=False)
+    quantity = Column(Integer, nullable=False, default=1)
+    date = Column(DateTime, default=func.now())
 
-    books = relationship('Book', secondary=books_sales, back_populates='sales')
+    book = relationship('Book', back_populates='sales')
 
     def __repr__(self):
         return f"<Sale(book_id={self.book_id}, quantity={self})>"
