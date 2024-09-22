@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table, Date
 from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.sql import func
 
 # Create the Base class, subclassed by all models
 Base = declarative_base()
@@ -15,6 +16,7 @@ books_sales = Table('books_sales',
                            Integer,
                            ForeignKey('books.id'),
                            primary_key=True),
+                    Column('purchase_date', Date, default=func.now()),
                     extend_existing=True)
 
 
