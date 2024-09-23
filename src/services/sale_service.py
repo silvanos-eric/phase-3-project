@@ -37,10 +37,12 @@ class SaleService:
 
     @staticmethod
     def get_sale_by_id(id_: int):
+        """Get a sale for provided id"""
         return session.query(Sale).get(id_)
 
     @staticmethod
     def update_sale(id_: int, quantity: int, book_id: int):
+        """Update the sale of a given id"""
         sale = session.query(Sale).get(id_)
         if not sale:
             raise ValueError(f"Sale with id '{id_}' does not exist!")
@@ -55,6 +57,7 @@ class SaleService:
 
     @staticmethod
     def delete_sale(id_: int):
+        """Delete the sale for the given id"""
         sale = session.query(Sale).get(id_)
         if not sale:
             raise ValueError(f"Sale with id '{id_}' does not exist!")
