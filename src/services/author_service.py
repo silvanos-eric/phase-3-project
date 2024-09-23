@@ -22,7 +22,7 @@ class AuthorService:
         """Retrieves all authors from the database."""
         return session.query(Author).all()
 
-    @classmethod
+    @staticmethod
     def get_author_by_id(id_: int):
         """Fetches an author by their id."""
         return session.query(Author).get(id_)
