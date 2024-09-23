@@ -31,6 +31,10 @@ class SalesService:
         return sale
 
     @staticmethod
-    def get_sales():
+    def get_all_sales():
         """Lists all sales transactions."""
         return session.query(Sale).all()
+
+    @staticmethod
+    def get_sale_by_id(id_: int):
+        return session.query(Sale).get(id_)

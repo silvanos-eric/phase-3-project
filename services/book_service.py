@@ -30,26 +30,28 @@ class BookService:
         return new_book
 
     @staticmethod
-    def list_books():
+    def get_all_books():
         """Lists all books in the store."""
         return session.query(Book).all()
 
     @staticmethod
-    def get_book_by_title_and_author_id(title: str, author_id: int):
+    def get_book_by_title_and_author_name(title: str, author_name: int):
         """Fetches a book by its title and author id."""
+        author = session.query(Author).filter_by(name=author_name).first()
+        author_id = author.id
         return session.query(Book).filter_by(title=title,
                                              author_id=author_id).first()
 
     @staticmethod
     def get_book_by_id(id: int):
         """Fetchesa book by its id"""
-        return session.query(Book).filter_by(id=id)
+        return session.query(Book).get(id)
 
     @staticmethod
     def update_book(id: int, title: str, author_name: str, price: float,
                     quantity: int):
         """Updates a book in the store."""
-        book = session.query(Book).filter_by(id=id).first()
+        book = session.query(Book).get(id)
         if not book:
             raise ValueError(f"Book with id '{id}' does not exist!")
 

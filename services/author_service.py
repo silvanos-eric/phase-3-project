@@ -23,9 +23,9 @@ class AuthorService:
         return session.query(Author).all()
 
     @classmethod
-    def get_author_by_id(id: int):
+    def get_author_by_id(id_: int):
         """Fetches an author by their id."""
-        return session.query(Author).filter_by(id=id).first()
+        return session.query(Author).get(id_)
 
     @staticmethod
     def get_author_by_name(name: str):
