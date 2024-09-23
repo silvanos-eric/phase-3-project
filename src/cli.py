@@ -67,3 +67,7 @@ def menu():
     print("14. Find a sale by id")
     print("15. Update a sale")
     print("16. Delete a sale")
+
+
+if __name__ == "__main__":
+    main()
