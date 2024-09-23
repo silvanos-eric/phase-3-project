@@ -1,4 +1,4 @@
-from database import Sale, session
+from database import Sale, session, Book
 from . import BookService, AuthorService
 
 
@@ -38,3 +38,25 @@ class SalesService:
     @staticmethod
     def get_sale_by_id(id_: int):
         return session.query(Sale).get(id_)
+
+    @staticmethod
+    def update_sale(id_: int, quantity: int, book_id: int):
+        sale = session.query(Sale).get(id_)
+        if not sale:
+            raise ValueError(f"Sale with id '{id_}' does not exist!")
+        book = session.query(Book).get(book_id)
+        if not book:
+            raise ValueError(f"Book with id '{book_id}' does not exist!")
+
+        sale.quantity = quantity
+        sale.book_id = book_id
+        session.commit()
+        return sale
+
+    @staticmethod
+    def delete_sale(id_: int):
+        sale = session.query(Sale).get(id_)
+        if not sale:
+            raise ValueError(f"Sale with id '{id_}' does not exist!")
+        session.delete(sale)
+        session.commit()

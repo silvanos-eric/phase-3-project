@@ -69,3 +69,12 @@ class BookService:
         book.stock = quantity
         session.commit()
         return book
+
+    @staticmethod
+    def delete_book(id: int):
+        """Deletes a book from the store."""
+        book = session.query(Book).get(id)
+        if not book:
+            raise ValueError(f"Book with id '{id}' does not exist!")
+        session.delete(book)
+        session.commit()

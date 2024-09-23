@@ -40,6 +40,16 @@ def get_author_by_name():
         print(f"Error: Author '{author_name}' not found!")
 
 
+def update_author():
+    author_name = input("Enter author name: ")
+    new_name = input("Enter new name: ")
+    try:
+        AuthorService.update_author(author_name, new_name)
+    except Exception as e:
+        print(f"Error: {e}")
+    print(f"Success: Author '{author_name}' updated!")
+
+
 def delete_author():
     author_name = input("Enter author name: ")
     try:
@@ -105,6 +115,15 @@ def update_book():
     print(f"Success:  {new_book} updated!")
 
 
+def delete_book():
+    book_id = int(input("Enter book id: "))
+    try:
+        BookService.delete_book(book_id)
+    except Exception as e:
+        print(f"Error: {e}")
+    print(f"Success: Book with id '{book_id}' deleted!")
+
+
 # Sales
 def sell_book():
     book_title = input("Enter book title: ")
@@ -131,3 +150,23 @@ def get_sale_by_id():
         print(sale)
     else:
         print(f"Error: Sale with id '{id_}' not found!")
+
+
+def update_sale():
+    id_ = input("Enter sale id: ")
+    quantity = input("Enter new quantity: ")
+    book_id = input("Enter new book id: ")
+    try:
+        new_sale = SalesService.update_sale(id_, quantity, book_id)
+    except Exception as e:
+        print(f"Error: {e}")
+    print(f"Success: {new_sale} updated!")
+
+
+def delete_sale():
+    id_ = input("Enter sale id: ")
+    try:
+        SalesService.delete_sale(id_)
+    except Exception as e:
+        print(f"Error: {e}")
+    print(f"Success: Sale with id '{id_}' deleted!")
