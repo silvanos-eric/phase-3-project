@@ -53,4 +53,4 @@ class Sale(Base):
     book = relationship('Book', back_populates='sales')
 
     def __repr__(self):
-        return f"<Sale(book_id={self.book_id}, quantity={self})>"
+        return f"<Sale(book_id={self.book_id}, quantity={self.quantity})>"
