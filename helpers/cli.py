@@ -1,4 +1,4 @@
-from services import AuthorService, BookService, SalesService
+from services import AuthorService, BookService, SaleService
 
 
 def exit_program():
@@ -130,21 +130,21 @@ def sell_book():
     author_name = input("Enter author name: ")
     quantity = int(input("Enter quantity: "))
     try:
-        new_sale = SalesService.sell_book(book_title, author_name, quantity)
+        new_sale = SaleService.sell_book(book_title, author_name, quantity)
     except Exception as e:
         print(f"Error: {e}")
     print(f"Success: {new_sale} added!")
 
 
 def get_all_sales():
-    sales = SalesService.get_all_sales()
+    sales = SaleService.get_all_sales()
     for sale in sales:
         print(sale)
 
 
 def get_sale_by_id():
     id_ = input("Enter sale id: ")
-    sale = SalesService.get_sale_by_id(id_)
+    sale = SaleService.get_sale_by_id(id_)
 
     if sale:
         print(sale)
@@ -157,7 +157,7 @@ def update_sale():
     quantity = input("Enter new quantity: ")
     book_id = input("Enter new book id: ")
     try:
-        new_sale = SalesService.update_sale(id_, quantity, book_id)
+        new_sale = SaleService.update_sale(id_, quantity, book_id)
     except Exception as e:
         print(f"Error: {e}")
     print(f"Success: {new_sale} updated!")
@@ -166,7 +166,7 @@ def update_sale():
 def delete_sale():
     id_ = input("Enter sale id: ")
     try:
-        SalesService.delete_sale(id_)
+        SaleService.delete_sale(id_)
     except Exception as e:
         print(f"Error: {e}")
     print(f"Success: Sale with id '{id_}' deleted!")

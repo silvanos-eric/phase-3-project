@@ -1,8 +1,8 @@
-from database import Sale, session, Book
+from models import Sale, session, Book
 from . import BookService, AuthorService
 
 
-class SalesService:
+class SaleService:
 
     @staticmethod
     def sell_book(title: str, author_name: str, quantity: int):

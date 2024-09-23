@@ -1,4 +1,4 @@
-from database import Author, session
+from models import Author, session
 
 
 class AuthorService:
