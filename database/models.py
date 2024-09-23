@@ -1,9 +1,15 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, create_engine
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from sqlalchemy.sql import func
 
 # Create the Base class, subclassed by all models
 Base = declarative_base()
+
+# Create a session to interact with the database
+DATABASE_URL = 'sqlite:///bookstore.db'
+engine = create_engine(DATABASE_URL)
+Session = sessionmaker(bind=engine)
+session = Session()
 
 
 # Author model
